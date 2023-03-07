@@ -1,0 +1,56 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:33060/keyword_db
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 40
+
+# swaggerdoc
+springdoc:
+  version: v1.0.0
+  packages-to-scan: com.search
+  swagger-ui:
+    path: /api-docs
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /api-docs/json
+    groups:
+      enabled: true
+  cache:
+    disabled: true
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+
+api:
+  kakao:
+    host: "https://dapi.kakao.com"
+    path: "/v2/local/search/keyword.json"
+    apiKey: "50d28f6653163fb835fe5931f9cf3ed3"
+    size: "5"
+  naver:
+    host: "https://openapi.naver.com"
+    path: "/v1/search/local.json"
+    clientId: "_8o4EDT1hTGUY4iPKU90"
+    clientSecret: "W8zCY43K_R"
+    displayCount: "5"
+
+function:
+  priorities:
+    - kakao
+    - naver
+
+lock:
+  key: RECORD_LOCK
